@@ -1,56 +1,44 @@
-# Building in 4 stages using only free credits:
 
-# Bilingual Court Case Q&A Web App
 
-## Boreh, DP World & Government of Djibouti
+## Database Setup for PDF Storage and Keyword Search
 
-### Overview
+### Schema
 
-A bilingual (English/French) web app that provides information about the London court case involving Boreh, DP World, and the Government of Djibouti. Visitors can browse pre-listed FAQs or search for specific information, with all answers sourced from two uploaded PDF documents (one per language).
+One table to store document sections:
 
----
+```text
+document_sections
+├── id (uuid, primary key)
+├── language (text, 'en' or 'fr')
+├── section_title (text, nullable)
+├── content (text, the extracted text)
+├── document_name (text, source filename)
+├── section_order (integer, ordering)
+├── created_at (timestamptz)
+```
 
-### Pages & Features
+### Search
 
-#### 1. Landing Page
+- Create a PostgreSQL function `search_documents(query text, lang text)` that performs case-insensitive keyword matching against the `content` column using `ILIKE`
+- Returns matching sections with a relevance snippet (surrounding text around the match)
 
-- A clear, professional header with the case title
-- Language toggle button (English 🇬🇧 / French 🇫🇷) prominently placed in the top navigation
-- Brief introduction about what the app covers
-- Two ways to find information: FAQ section and a search bar
+### Edge Function
 
-#### 2. FAQ Section
+- `search-documents`: accepts `{ query, language }`, calls the database search function, returns matching excerpts
 
-- A curated list of common questions about the case, displayed as an expandable accordion
-- Questions and answers switch language when the user toggles between English and French
-- Initially populated with placeholder questions that you can customize after reviewing
+### Frontend Integration
 
-#### 3. Search Feature
+- Update `SearchSection.tsx` to call the edge function and display results as a list of matching passages
 
-- A search bar where visitors type questions or keywords
-- Keyword-based search that scans through the stored document content
-- Results display relevant excerpts/passages from the documents
-- Search works in whichever language is currently selected
+### RLS
 
-#### 4. Language Toggle
+- Public read access (no auth needed for a public informational site)
+- No insert/update/delete from client — data managed via migrations or admin
 
-- Persistent toggle in the navigation bar (EN / FR)
-- Switching language updates all UI text, FAQ content, and search results to pull from the corresponding language document
-- User's language preference is remembered during the session
+### Steps
 
----
+1. Create migration for `document_sections` table with RLS (public select)
+2. Create `search_documents` database function
+3. Create `search-documents` edge function
+4. Update `SearchSection.tsx` to call the edge function and render results
 
-### Backend (Lovable Cloud)
-
-- **Database**: Store the extracted text content from your two PDF documents (English and French versions), broken into searchable sections
-- **Search**: Keyword matching against stored document content to find relevant passages
-- You will upload the two PDFs after the app is built, and the content will be stored for searching
-
----
-
-### Design
-
-- Clean, professional layout suitable for legal/informational content
-- Neutral color palette with clear typography
-- Mobile-responsive design
-- Simple navigation: Home, FAQ, Search
