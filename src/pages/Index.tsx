@@ -21,8 +21,8 @@ const Index = () => {
           </div>
           <h1 className="mx-auto mb-6 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
             {t(
-              "How Djibouti Was Locked Into an Unfavourable Deal with DP World",
-              "Comment Djibouti s'est retrouvé enfermé dans un accord défavorable avec DP World"
+              "How President Ismail Omar Guelleh accepted and signed an unfavourable deal with DP World for the People of Djibouti",
+              "Comment le Président Ismail Omar Guelleh a accepté et signé un accord défavorable avec DP World pour le peuple de Djibouti"
             )}
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
