@@ -14,13 +14,52 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      document_sections: {
+        Row: {
+          content: string
+          created_at: string
+          document_name: string
+          id: string
+          language: string
+          section_order: number
+          section_title: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          document_name: string
+          id?: string
+          language: string
+          section_order?: number
+          section_title?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          document_name?: string
+          id?: string
+          language?: string
+          section_order?: number
+          section_title?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      search_documents: {
+        Args: { lang: string; search_query: string }
+        Returns: {
+          content: string
+          document_name: string
+          id: string
+          section_order: number
+          section_title: string
+          snippet: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
