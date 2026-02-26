@@ -17,7 +17,7 @@ const Index = () => {
         <div className="container relative max-w-4xl py-20 text-center sm:py-28">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-            {t("London Commercial Court", "Cour Commerciale de Londres")}
+            {t("Public documents from the London Commercial Court", "Documents publics de la Cour Commerciale de Londres")}
           </div>
           <h1 className="mx-auto mb-6 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
             {t(
