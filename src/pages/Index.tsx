@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import FAQSection from "@/components/FAQSection";
+import SourcesSection from "@/components/SourcesSection";
 import SearchSection from "@/components/SearchSection";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ArrowDown } from "lucide-react";
@@ -80,6 +81,7 @@ const Index = () => {
 
       <main className="container max-w-3xl py-12">
         <FAQSection />
+        <SourcesSection />
         <SearchSection />
 
         <footer className="mt-16 border-t border-border pt-8 pb-12 text-center">
