@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DOMPurify from "dompurify";
 import { Search, Loader2, FileText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -47,8 +48,10 @@ const SearchSection = () => {
 
   const highlightMatch = (text: string) => {
     if (!query.trim()) return text;
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-    return text.replace(regex, "<mark class='bg-accent/30 text-accent-foreground rounded px-0.5 font-medium'>$1</mark>");
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${escapedQuery})`, "gi");
+    const highlighted = text.replace(regex, "<mark class='bg-accent/30 text-accent-foreground rounded px-0.5 font-medium'>$1</mark>");
+    return DOMPurify.sanitize(highlighted, { ALLOWED_TAGS: ['mark'], ALLOWED_ATTR: ['class'] });
   };
 
   return (
